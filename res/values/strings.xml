@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">LP Controller Tab Pager</string>
+    <string name="title_context_detail">Kontrollelemente</string>
+    <string name="title_context_list">LP Home Control</string>
+    <string name="hello_world">Hello World</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

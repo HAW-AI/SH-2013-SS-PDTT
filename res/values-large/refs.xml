@@ -1,0 +1,3 @@
+<resources>
+    <item type="layout" name="activity_context_list">@layout/activity_context_twopane</item>
+</resources>
