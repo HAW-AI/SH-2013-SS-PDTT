@@ -5,5 +5,12 @@
     <string name="title_context_list">LP Home Control</string>
     <string name="hello_world">Hello World</string>
     <string name="action_settings">Settings</string>
+    <string name="lightToggleButton">Light Switch</string>
+    <string name="lightToggleButtonLabel">Light Switch</string>
+    <string name="lightDimmerSeekBarLabel">Dimmer</string>
+    <string name="lightDimmerValue">100%</string>
+    <string name="lightColorTitleLabel">Color</string>
+    <string name="lightDimmerTitleLabel">Intensity</string>
+    <string name="lightColorValueLabel">White</string>
 
 </resources>

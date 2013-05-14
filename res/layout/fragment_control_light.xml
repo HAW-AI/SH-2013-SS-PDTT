@@ -3,17 +3,62 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/title"
-        style="@android:style/TextAppearance.Large"
+    <ToggleButton
+        android:id="@+id/lightToggleButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Placeholder" />
+        android:text="" />
 
-    <ToggleButton
-        android:id="@+id/toggleButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/lightDimmerLabelGroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Placeholder" />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lightDimmerTitleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/lightDimmerTitleLabel"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/lightDimmerValueLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/lightDimmerValue"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lightColorLabelGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/lightColorTitleLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/lightColorTitleLabel"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/lightColorValueLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/lightColorValueLabel"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
 
 </LinearLayout>
