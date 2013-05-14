@@ -19,7 +19,7 @@ public class ControlActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_control);
 
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+//        getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		if (savedInstanceState == null) {		
 			Bundle b = getIntent().getExtras();
