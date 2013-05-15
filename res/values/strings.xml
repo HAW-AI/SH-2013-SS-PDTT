@@ -11,5 +11,6 @@
     <string name="lightColorTitle">Farbe</string>
     <string name="lightDimmerTitle">Intensität</string>
     <string name="lightColorSummary">Weiß</string>
+    <string name="seekBarDialogValue">100%</string>
 
 </resources>

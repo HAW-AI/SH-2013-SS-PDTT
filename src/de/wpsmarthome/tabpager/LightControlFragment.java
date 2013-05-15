@@ -1,6 +1,7 @@
 package de.wpsmarthome.tabpager;
 
 import de.wpsmarthome.control.Messages;
+import de.wpsmarthome.tabpager.SeekBarDialog.OnProgressSetListener;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,12 +10,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 
 public class LightControlFragment extends ControlFragment {
     
     private final String simpleClassName = getClass().getSimpleName();
+    private int mDimmerValue = 100;
+    private TextView mDimmerSummary;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,7 @@ public class LightControlFragment extends ControlFragment {
         });
         
         final View dimmerGroup = (View) rootView.findViewById(R.id.lightDimmerGroup);
+        mDimmerSummary = (TextView) rootView.findViewById(R.id.lightDimmerSummary);
         dimmerGroup.setOnClickListener(new OnClickListener() {
             // must be local or it will only work correctly on the first time
             Drawable selector = new ListView(LightControlFragment.this.getActivity()).getSelector();
@@ -45,6 +51,7 @@ public class LightControlFragment extends ControlFragment {
             public void onClick(View v) {
                 Log.d(simpleClassName, "dimmerGroup.onClick(v)");
                 dimmerGroup.setBackgroundDrawable(selector);
+                showDimmerDialog();
             }
         });
         
@@ -59,8 +66,22 @@ public class LightControlFragment extends ControlFragment {
                 colorGroup.setBackgroundDrawable(selector);
             }
         });
+        
+        
 
         return rootView;
     }
+
+	private void showDimmerDialog() {
+		new SeekBarDialog(getActivity(), new OnProgressSetListener() {
+			
+			@Override
+			public void onProgressSet(SeekBar view, int progress) {
+				Log.d(simpleClassName, String.format("onProgressSet(v, %s)", progress));
+				mDimmerValue = progress;
+				mDimmerSummary.setText(progress + "%");
+			}
+		}, R.string.lightDimmerTitle, mDimmerValue).show();
+	}
     
 }
