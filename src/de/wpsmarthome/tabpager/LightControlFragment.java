@@ -34,27 +34,27 @@ public class LightControlFragment extends ControlFragment {
             }
         });
         
-        final View dimmerLabelGroup = (View) rootView.findViewById(R.id.lightDimmerLabelGroup);
-        dimmerLabelGroup.setOnClickListener(new OnClickListener() {
+        final View dimmerGroup = (View) rootView.findViewById(R.id.lightDimmerGroup);
+        dimmerGroup.setOnClickListener(new OnClickListener() {
             // must be local or it will only work correctly on the first time
             Drawable selector = new ListView(LightControlFragment.this.getActivity()).getSelector();
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
-                Log.d(simpleClassName, "dimmerLabelGroup.onClick(v)");
-                dimmerLabelGroup.setBackgroundDrawable(selector);
+                Log.d(simpleClassName, "dimmerGroup.onClick(v)");
+                dimmerGroup.setBackgroundDrawable(selector);
             }
         });
         
-        final View colorLabelGroup = (View) rootView.findViewById(R.id.lightColorLabelGroup);
-        colorLabelGroup.setOnClickListener(new OnClickListener() {
+        final View colorGroup = (View) rootView.findViewById(R.id.lightColorGroup);
+        colorGroup.setOnClickListener(new OnClickListener() {
             // must be local or it will only work correctly on the first time
             Drawable selector = new ListView(LightControlFragment.this.getActivity()).getSelector();
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
-                Log.d(simpleClassName, "colorLabelGroup.onClick(v)");
-                colorLabelGroup.setBackgroundDrawable(selector);
+                Log.d(simpleClassName, "colorGroup.onClick(v)");
+                colorGroup.setBackgroundDrawable(selector);
             }
         });
 

@@ -1,3 +1,4 @@
+<!-- like preferences - from http://stackoverflow.com/questions/5655816/android-how-to-make-a-listview-that-looks-similar-to-preferences -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -10,55 +11,103 @@
         android:text="" />
 
     <LinearLayout
-        android:id="@+id/lightDimmerLabelGroup"
+        android:id="@+id/lightDimmerGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:gravity="center_vertical"
+        android:baselineAligned="false"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:paddingRight="?android:attr/scrollbarSize" >
 
-        <TextView
-            android:id="@+id/lightDimmerTitleLabel"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="@string/lightDimmerTitleLabel"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_marginBottom="6dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_weight="1" >
 
-        <TextView
-            android:id="@+id/lightDimmerValueLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="@string/lightDimmerValue"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/lightDimmerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:singleLine="true"
+                android:text="@string/lightDimmerTitle"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/lightDimmerSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/lightDimmerTitle"
+                android:layout_below="@id/lightDimmerTitle"
+                android:maxLines="4"
+                android:text="@string/lightDimmerSummary"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </RelativeLayout>
+
+        <!-- Preference should place its actual preference widget here. -->
+
+        <LinearLayout
+            android:id="@+android:id/widget_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/lightColorLabelGroup"
+        android:id="@+id/lightColorGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:paddingRight="?android:attr/scrollbarSize" >
 
-        <TextView
-            android:id="@+id/lightColorTitleLabel"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="@string/lightColorTitleLabel"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_marginBottom="6dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_weight="1" >
 
-        <TextView
-            android:id="@+id/lightColorValueLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:text="@string/lightColorValueLabel"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/lightColorTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:singleLine="true"
+                android:text="@string/lightColorTitle"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/lightColorSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/lightColorTitle"
+                android:layout_below="@id/lightColorTitle"
+                android:maxLines="4"
+                android:text="@string/lightColorSummary"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        </RelativeLayout>
+
+        <!-- Preference should place its actual preference widget here. -->
+
+        <LinearLayout
+            android:id="@+android:id/widget_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical" />
     </LinearLayout>
 
 </LinearLayout>
