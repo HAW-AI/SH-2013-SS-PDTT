@@ -1,20 +1,15 @@
 package de.wpsmarthome.tabpager;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ListView;
 
 public class LightControlFragment extends ControlFragment {
     
@@ -39,21 +34,27 @@ public class LightControlFragment extends ControlFragment {
             }
         });
         
-        View dimmerLabelGroup = (View) rootView.findViewById(R.id.lightDimmerLabelGroup);
+        final View dimmerLabelGroup = (View) rootView.findViewById(R.id.lightDimmerLabelGroup);
         dimmerLabelGroup.setOnClickListener(new OnClickListener() {
+            // must be local or it will only work correctly on the first time
+            Drawable selector = new ListView(LightControlFragment.this.getActivity()).getSelector();
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 Log.d(simpleClassName, "dimmerLabelGroup.onClick(v)");
+                dimmerLabelGroup.setBackgroundDrawable(selector);
             }
         });
         
-        View colorLabelGroup = (View) rootView.findViewById(R.id.lightColorLabelGroup);
+        final View colorLabelGroup = (View) rootView.findViewById(R.id.lightColorLabelGroup);
         colorLabelGroup.setOnClickListener(new OnClickListener() {
+            // must be local or it will only work correctly on the first time
+            Drawable selector = new ListView(LightControlFragment.this.getActivity()).getSelector();
             @SuppressWarnings("deprecation")
             @Override
             public void onClick(View v) {
                 Log.d(simpleClassName, "colorLabelGroup.onClick(v)");
+                colorLabelGroup.setBackgroundDrawable(selector);
             }
         });
 
