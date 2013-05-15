@@ -1,5 +1,6 @@
 package de.wpsmarthome.tabpager;
 
+import de.wpsmarthome.control.Messages;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class LightControlFragment extends ControlFragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(simpleClassName, String.format("toggleButton.onCheckedChanged(this, %b)", isChecked));
+                Messages.kitchenLightSwitchMessage(isChecked).send();
             }
         });
         
