@@ -1,7 +1,7 @@
 package de.wpsmarthome.tabpager;
 
 import de.wpsmarthome.control.Messages;
-import de.wpsmarthome.tabpager.SeekBarDialog.OnProgressSetListener;
+import de.wpsmarthome.tabpager.SeekBarDialogFragment.OnProgressSetListener;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,7 +73,7 @@ public class LightControlFragment extends ControlFragment {
     }
 
 	private void showDimmerDialog() {
-		new SeekBarDialog(getActivity(), new OnProgressSetListener() {
+		SeekBarDialogFragment.newInstance(new OnProgressSetListener() {
 			
 			@Override
 			public void onProgressSet(SeekBar view, int progress) {
@@ -81,7 +81,7 @@ public class LightControlFragment extends ControlFragment {
 				mDimmerValue = progress;
 				mDimmerSummary.setText(progress + "%");
 			}
-		}, R.string.lightDimmerTitle, mDimmerValue).show();
+		}, R.string.lightDimmerTitle, mDimmerValue).show(getFragmentManager(), "dimmerSeekBarDialogFragment");
 	}
     
 }
