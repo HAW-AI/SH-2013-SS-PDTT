@@ -3,6 +3,7 @@ package de.wpsmarthome.tabpager;
 import java.util.Locale;
 
 import de.wpsmarthome.control.Messages;
+import de.wpsmarthome.control.Objects.Light;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class LightControlFragment extends ControlFragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(simpleClassName, String.format("toggleButton.onCheckedChanged(this, %b)", isChecked));
-                Messages.kitchenLightSwitchMessage(isChecked).send();
+                Messages.lightSwitchMessage(Light.KITCHEN_MAIN, isChecked).send();
             }
         });
         

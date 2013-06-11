@@ -39,7 +39,7 @@ public class SingleMessage extends AsyncTask<String, Void, Void> implements Mess
             publisher.setMessage(getJsonMessage());
             publisher.publishToTopic();
         } catch (IOException e) {
-            Log.e(getClass().getSimpleName(), "Can't publish the message");
+            Log.e(getClass().getSimpleName(), "Can't publish the message (" + e + ")");
         }
 		return null;
     }
