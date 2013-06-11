@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import de.wpsmarthome.control.Objects.Light;
 import de.wpsmarthome.tabpager.ControlFragment;
 import de.wpsmarthome.tabpager.LightControlFragment;
 import de.wpsmarthome.tabpager.utils.Context;
@@ -26,13 +27,15 @@ public class ControlFragmentFactory {
 		}
 		if (fragmentMap.get(context).get(control) == null){
 			SherlockFragment fragment;
+			Bundle args = new Bundle();
+			
 			if (context == Context.KITCHEN && control.equals(Control.LIGHT)) {
 			    fragment = new LightControlFragment();
+			    args.putSerializable(LightControlFragment.LIGHT, Light.KITCHEN_MAIN);
 			} else {
     		    fragment = new ControlFragment();
 			}
 			
-			Bundle args = new Bundle();
 			args.putSerializable(ControlFragment.CONTEXT, context);
 			args.putSerializable(ControlFragment.CONTROL, control);
 			fragment.setArguments(args);

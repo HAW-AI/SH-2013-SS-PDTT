@@ -21,8 +21,13 @@ import android.widget.ListView;
 
 public class LightControlFragment extends ControlFragment
 	implements SeekBarDialogFragment.OnProgressSetListener, ColorPickerDialogFragment.OnColorSetListener {
+	
+	public static final String LIGHT = "light";
     
     private final String simpleClassName = getClass().getSimpleName();
+    
+    private Light mLight;
+    
     private int mDimmerValue = 100;
     private TextView mDimmerSummary;
     private int mColorValue = -1442840577; // white
@@ -31,6 +36,8 @@ public class LightControlFragment extends ControlFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        mLight = (Light) getArguments().getSerializable(LIGHT);
     }
 
     @Override
@@ -44,7 +51,7 @@ public class LightControlFragment extends ControlFragment
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(simpleClassName, String.format("toggleButton.onCheckedChanged(this, %b)", isChecked));
-                Messages.lightSwitchMessage(Light.KITCHEN_MAIN, isChecked).send();
+                Messages.lightSwitchMessage(mLight, isChecked).send();
             }
         });
         
@@ -99,7 +106,7 @@ public class LightControlFragment extends ControlFragment
 		Log.d(simpleClassName, String.format("onProgressSet(v, %s)", progress));
 		mDimmerValue = progress;
 		mDimmerSummary.setText(progress + "%");
-		Messages.lightIntensityMessage(Light.KITCHEN_MAIN, progress).send();
+		Messages.lightIntensityMessage(mLight, progress).send();
 	}
 
 	@Override
@@ -107,7 +114,7 @@ public class LightControlFragment extends ControlFragment
 		Log.d(simpleClassName, String.format("onColorSet(f, %s)", color));
 		mColorValue = color;
 		mColorSummary.setText(colorSummary(color));
-		Messages.lightColorMessage(Light.KITCHEN_MAIN, color).send();
+		Messages.lightColorMessage(mLight, color).send();
 	}
 	
 	private CharSequence colorSummary(int color) {
