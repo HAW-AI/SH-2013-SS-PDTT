@@ -1,8 +1,13 @@
 package de.wpsmarthome.tabpager;
 
+import java.util.Locale;
+
 import de.wpsmarthome.control.Messages;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +18,14 @@ import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 
-public class LightControlFragment extends ControlFragment implements SeekBarDialogFragment.OnProgressSetListener {
+public class LightControlFragment extends ControlFragment
+	implements SeekBarDialogFragment.OnProgressSetListener, ColorPickerDialogFragment.OnColorSetListener {
     
     private final String simpleClassName = getClass().getSimpleName();
     private int mDimmerValue = 100;
     private TextView mDimmerSummary;
+    private int mColorValue = -1442840577; // white
+    private TextView mColorSummary;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,8 @@ public class LightControlFragment extends ControlFragment implements SeekBarDial
         });
         
         final View colorGroup = (View) rootView.findViewById(R.id.lightColorGroup);
+        mColorSummary = (TextView) rootView.findViewById(R.id.lightColorSummary);
+        mColorSummary.setText(colorSummary(mColorValue)); // correct formatting
         colorGroup.setOnClickListener(new OnClickListener() {
             // must be local or it will only work correctly on the first time
             Drawable selector = new ListView(LightControlFragment.this.getActivity()).getSelector();
@@ -62,6 +72,7 @@ public class LightControlFragment extends ControlFragment implements SeekBarDial
             public void onClick(View v) {
                 Log.d(simpleClassName, "colorGroup.onClick(v)");
                 colorGroup.setBackgroundDrawable(selector);
+                showColorDialog();
             }
         });
         
@@ -76,11 +87,33 @@ public class LightControlFragment extends ControlFragment implements SeekBarDial
 		f.show(getFragmentManager(), "dimmerSeekBarDialogFragment");
 	}
 
+	private void showColorDialog() {
+		ColorPickerDialogFragment f = ColorPickerDialogFragment.newInstance(R.string.lightColorTitle, mColorValue);
+		f.setTargetFragment(this, 0);
+		f.show(getFragmentManager(), "colorSeekBarDialogFragment");
+	}
+
 	@Override
 	public void onProgressSet(SeekBarDialogFragment dialogFragment, int progress) {
 		Log.d(simpleClassName, String.format("onProgressSet(v, %s)", progress));
 		mDimmerValue = progress;
 		mDimmerSummary.setText(progress + "%");
 	}
-    
+
+	@Override
+	public void onColorSet(ColorPickerDialogFragment dialogFragment, int color) {
+		Log.d(simpleClassName, String.format("onColorSet(f, %s)", color));
+		mColorValue = color;
+		mColorSummary.setText(colorSummary(color));
+	}
+	
+	private CharSequence colorSummary(int color) {
+		// "\u2588" is FULL BLOCK http://www.fileformat.info/info/unicode/char/2588/index.htm
+		String summary = String.format(Locale.ENGLISH, "\u2588 (%d, %d, %d)",
+				Color.red(color), Color.green(color), Color.blue(color));
+		SpannableString spannableSummary = new SpannableString(summary);
+		spannableSummary.setSpan(new ForegroundColorSpan(color), 0, 1, 0); // colorize first char
+		return spannableSummary;
+	}
+
 }
