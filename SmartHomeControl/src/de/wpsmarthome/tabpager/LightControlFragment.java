@@ -106,6 +106,7 @@ public class LightControlFragment extends ControlFragment
 		Log.d(simpleClassName, String.format("onColorSet(f, %s)", color));
 		mColorValue = color;
 		mColorSummary.setText(colorSummary(color));
+		Messages.lightColorMessage(Light.KITCHEN_MAIN, color).send();
 	}
 	
 	private CharSequence colorSummary(int color) {

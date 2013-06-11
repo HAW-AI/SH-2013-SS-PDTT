@@ -3,6 +3,7 @@ package de.wpsmarthome.control;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -48,10 +49,26 @@ public class SingleMessage implements Message {
 	}
 	
 	private String getJsonMessage() {
+		String values;
+		
+		if (mValues.isEmpty()) {
+			values = "{}";
+		} else {
+			StringBuilder builder = new StringBuilder();
+			builder.append("{");
+			for (Entry<String, String> entry : mValues.entrySet()) {
+				builder.append(" \"" + entry.getKey() + "\": \"" + entry.getValue() + "\","); 
+			}
+			builder.deleteCharAt(builder.length() - 1); // remove last ","
+			builder.append(" }");
+			
+			values = builder.toString();
+		}
+		
         String message =
                 "{" +
             		"\"action\": \"" + mAction + "\"," +
-//            		"\"values\": {}," +
+            		"\"values\": " + values + "," +
             		"\"Id\": \"" + API_ID + "\"," +
             		"\"Version\": null" +
         		"}";
