@@ -41,6 +41,34 @@ public class Messages {
 		return message;
 	}
 	
+	// intensity \elem [0, 100]
+	public static Message lightIntensityMessage(Objects.Light light, int intensity) {
+		if (intensity < 0) {
+			intensity = 0;
+		} else if (intensity > 100) {
+			intensity = 100;
+		}
+		
+		Message message = null;
+		
+		if (light == Light.KITCHEN_ALL) { // composed message
+			Message cookingLightMessage = lightColorMessage(Light.KITCHEN_COOKING, intensity);
+			Message mainLightMessage = lightColorMessage(Light.KITCHEN_MAIN, intensity);
+			message = composedMessage(cookingLightMessage, mainLightMessage);
+		} else {
+			String actionBaseName = light.toString().toLowerCase(Locale.ENGLISH);
+			String actionName = actionBaseName + "_light_on"; 
+			
+			Map<String, String> values = new HashMap<String, String>();
+			int absoluteIntensity = (int) Math.ceil(255.0/100 * intensity); // convert from [0, 100] to [0, 255]
+			values.put("intensity", absoluteIntensity + "");
+			
+			message = message(actionName, values, sLightTopic);
+		}
+		
+		return message;
+	}
+	
 	public static Message lightColorMessage(Objects.Light light, int color) {
 		Message message = null;
 		

@@ -99,6 +99,7 @@ public class LightControlFragment extends ControlFragment
 		Log.d(simpleClassName, String.format("onProgressSet(v, %s)", progress));
 		mDimmerValue = progress;
 		mDimmerSummary.setText(progress + "%");
+		Messages.lightIntensityMessage(Light.KITCHEN_MAIN, progress).send();
 	}
 
 	@Override
