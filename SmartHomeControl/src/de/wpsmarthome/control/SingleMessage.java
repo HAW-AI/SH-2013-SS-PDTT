@@ -7,7 +7,7 @@ import java.util.Map;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class SingleMessage extends AsyncTask<String, Void, Void> implements Message {
+public class SingleMessage implements Message {
 	
 	private static final String API_ID = "patricktill";
 	
@@ -28,21 +28,24 @@ public class SingleMessage extends AsyncTask<String, Void, Void> implements Mess
 	@Override
 	public void send() {
 		Log.d(getClass().getSimpleName(), "send message " + getJsonMessage());
-		doInBackground();
-	}
+		
+		new AsyncTask<String, Void, Void>() {
 
-	@Override
-	protected Void doInBackground(String... _params) {
-		try {
-            AndroidPublisher publisher = new AndroidPublisher(mServer,
-                    mPort, mTopicName);
-            publisher.setMessage(getJsonMessage());
-            publisher.publishToTopic();
-        } catch (IOException e) {
-            Log.e(getClass().getSimpleName(), "Can't publish the message (" + e + ")");
-        }
-		return null;
-    }
+			@Override
+			protected Void doInBackground(String... _params) {
+				try {
+		            AndroidPublisher publisher = new AndroidPublisher(mServer,
+		                    mPort, mTopicName);
+		            publisher.setMessage(getJsonMessage());
+		            publisher.publishToTopic();
+		        } catch (IOException e) {
+		            Log.e(SingleMessage.this.getClass().getSimpleName(), "Can't publish the message (" + e + ")");
+		        }
+				return null;
+			}
+			
+		}.execute();
+	}
 	
 	private String getJsonMessage() {
         String message =
