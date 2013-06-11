@@ -1,7 +1,6 @@
 package de.wpsmarthome.tabpager;
 
 import de.wpsmarthome.control.Messages;
-import de.wpsmarthome.tabpager.SeekBarDialogFragment.OnProgressSetListener;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +9,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
 
-public class LightControlFragment extends ControlFragment {
+public class LightControlFragment extends ControlFragment implements SeekBarDialogFragment.OnProgressSetListener {
     
     private final String simpleClassName = getClass().getSimpleName();
     private int mDimmerValue = 100;
@@ -73,15 +71,16 @@ public class LightControlFragment extends ControlFragment {
     }
 
 	private void showDimmerDialog() {
-		SeekBarDialogFragment.newInstance(new OnProgressSetListener() {
-			
-			@Override
-			public void onProgressSet(SeekBar view, int progress) {
-				Log.d(simpleClassName, String.format("onProgressSet(v, %s)", progress));
-				mDimmerValue = progress;
-				mDimmerSummary.setText(progress + "%");
-			}
-		}, R.string.lightDimmerTitle, mDimmerValue).show(getFragmentManager(), "dimmerSeekBarDialogFragment");
+		SeekBarDialogFragment f = SeekBarDialogFragment.newInstance(R.string.lightDimmerTitle, mDimmerValue);
+		f.setTargetFragment(this, 0);
+		f.show(getFragmentManager(), "dimmerSeekBarDialogFragment");
+	}
+
+	@Override
+	public void onProgressSet(SeekBarDialogFragment dialogFragment, int progress) {
+		Log.d(simpleClassName, String.format("onProgressSet(v, %s)", progress));
+		mDimmerValue = progress;
+		mDimmerSummary.setText(progress + "%");
 	}
     
 }

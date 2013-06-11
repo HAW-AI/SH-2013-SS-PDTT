@@ -14,15 +14,14 @@ import android.widget.TextView;
 
 public class SeekBarDialogFragment extends SherlockDialogFragment {
 	public interface OnProgressSetListener {
-		void onProgressSet(SeekBar view, int progress);
+		void onProgressSet(SeekBarDialogFragment dialogFragment, int progress);
 	}
 	
 	OnProgressSetListener mCallBack;
 	SeekBar mSeekBar;
 	
-	public static SeekBarDialogFragment newInstance(OnProgressSetListener callBack, int titleId, int progress) {
+	public static SeekBarDialogFragment newInstance(int titleId, int progress) {
 		SeekBarDialogFragment f = new SeekBarDialogFragment();
-		f.setCallBack(callBack);
 		
 		Bundle args = new Bundle();
         args.putInt("titleId", titleId);
@@ -34,11 +33,19 @@ public class SeekBarDialogFragment extends SherlockDialogFragment {
 	}
 	
 	public SeekBarDialogFragment() {}
-	
-	// TODO: pass callback via args-bundle, but how?
-	private void setCallBack(OnProgressSetListener callBack) {
-		mCallBack = callBack;
-	}
+		
+	// from http://stackoverflow.com/questions/13238959/how-to-get-button-clicks-in-host-fragment-from-dialog-fragment
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        try {
+            mCallBack = (OnProgressSetListener) getTargetFragment();
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Calling fragment must implement SeekBarDialogFragment.OnProgressSetListener interface");
+        }
+    }
+
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -72,7 +79,7 @@ public class SeekBarDialogFragment extends SherlockDialogFragment {
 			.setPositiveButton(android.R.string.ok, new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					mCallBack.onProgressSet(seekBar, seekBar.getProgress());
+					mCallBack.onProgressSet(SeekBarDialogFragment.this, seekBar.getProgress());
 				}
 			})
 			.setNegativeButton(android.R.string.cancel, null)
