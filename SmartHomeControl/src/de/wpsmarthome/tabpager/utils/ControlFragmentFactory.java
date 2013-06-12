@@ -7,18 +7,26 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import de.wpsmarthome.control.Objects.Light;
 import de.wpsmarthome.tabpager.ControlFragment;
 import de.wpsmarthome.tabpager.KitchenLightControlFragment;
+import de.wpsmarthome.tabpager.LightControlFragment;
 import de.wpsmarthome.tabpager.utils.Context;
 public class ControlFragmentFactory {
 
 	private static Map<Context, Map<Control,SherlockFragment>>  fragmentMap = new HashMap<Context, Map<Control,SherlockFragment>>();
+	private static Map<Context, Light> lightMap = new HashMap<Context, Light>();
 
 	static{
 		
 		for (Context c: Context.values()) {
 			fragmentMap.put(c,null);
 		}
+
+		lightMap.put(Context.LOUNGE, Light.LOUNGE);
+		lightMap.put(Context.DINING, Light.DINING);
+		lightMap.put(Context.HALL, Light.CORRIDOR);
+		lightMap.put(Context.BEDROOM, Light.SLEEPING);
 	}
 	public static SherlockFragment getInstance(Context context, Control control) {
 		if (fragmentMap.get(context) == null){
@@ -30,6 +38,9 @@ public class ControlFragmentFactory {
 			
 			if (context == Context.KITCHEN && control.equals(Control.LIGHT)) {
 				fragment = new KitchenLightControlFragment();
+			} else if (control.equals(Control.LIGHT) && lightMap.containsKey(context)) {
+				fragment = new LightControlFragment();
+				args.putSerializable(LightControlFragment.LIGHT, lightMap.get(context));
 			} else {
     		    fragment = new ControlFragment();
 			}
