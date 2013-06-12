@@ -1,6 +1,6 @@
 [submodule "dependencies/ActionBarSherlock"]
 	path = dependencies/ActionBarSherlock
-	url = git://github.com/JakeWharton/ActionBarSherlock.git
+	url = https://github.com/JakeWharton/ActionBarSherlock.git
 [submodule "dependencies/HoloColorPicker"]
 	path = dependencies/HoloColorPicker
-	url = git://github.com/LarsWerkman/HoloColorPicker.git
+	url = https://github.com/LarsWerkman/HoloColorPicker.git
