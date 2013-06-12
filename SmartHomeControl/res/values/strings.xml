@@ -12,5 +12,8 @@
     <string name="lightDimmerTitle">Intensität</string>
     <string name="lightColorSummary">Weiß</string>
     <string name="seekBarDialogValue">100%</string>
+    <string name="kitchenLightsAllLightsTitle">Alle Lampen</string>
+    <string name="kitchenLightsMainLightTitle">Decke</string>
+    <string name="kitchenLightsCookingLightTitle">Küchenzeile</string>
 
 </resources>

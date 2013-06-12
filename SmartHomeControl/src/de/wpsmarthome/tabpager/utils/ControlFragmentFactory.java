@@ -9,6 +9,7 @@ import com.actionbarsherlock.app.SherlockFragment;
 
 import de.wpsmarthome.control.Objects.Light;
 import de.wpsmarthome.tabpager.ControlFragment;
+import de.wpsmarthome.tabpager.KitchenLightControlFragment;
 import de.wpsmarthome.tabpager.LightControlFragment;
 import de.wpsmarthome.tabpager.utils.Context;
 public class ControlFragmentFactory {
@@ -30,8 +31,7 @@ public class ControlFragmentFactory {
 			Bundle args = new Bundle();
 			
 			if (context == Context.KITCHEN && control.equals(Control.LIGHT)) {
-			    fragment = new LightControlFragment();
-			    args.putSerializable(LightControlFragment.LIGHT, Light.KITCHEN_MAIN);
+				fragment = new KitchenLightControlFragment();
 			} else {
     		    fragment = new ControlFragment();
 			}
