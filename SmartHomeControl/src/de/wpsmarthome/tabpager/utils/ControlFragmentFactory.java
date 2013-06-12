@@ -7,10 +7,8 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
-import de.wpsmarthome.control.Objects.Light;
 import de.wpsmarthome.tabpager.ControlFragment;
 import de.wpsmarthome.tabpager.KitchenLightControlFragment;
-import de.wpsmarthome.tabpager.LightControlFragment;
 import de.wpsmarthome.tabpager.utils.Context;
 public class ControlFragmentFactory {
 
