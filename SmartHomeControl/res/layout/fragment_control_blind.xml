@@ -1,0 +1,51 @@
+<!-- like preferences - from http://stackoverflow.com/questions/5655816/android-how-to-make-a-listview-that-looks-similar-to-preferences -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/blindHeightGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:baselineAligned="false"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:paddingRight="?android:attr/scrollbarSize" >
+
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="6dip"
+            android:layout_marginTop="6dip"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/blindHeightTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:singleLine="true"
+                android:text="@string/blindHeightTitle"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/blindHeightSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/blindHeightTitle"
+                android:layout_below="@id/blindHeightTitle"
+                android:maxLines="4"
+                android:text="@string/blindHeightSummary"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            
+
+        </RelativeLayout>
+        
+    </LinearLayout>
+
+</LinearLayout>

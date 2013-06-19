@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockFragment;
 
 import de.wpsmarthome.control.Objects.Light;
+import de.wpsmarthome.tabpager.BlindControlFragment;
 import de.wpsmarthome.tabpager.ControlFragment;
 import de.wpsmarthome.tabpager.KitchenLightControlFragment;
 import de.wpsmarthome.tabpager.LightControlFragment;
@@ -41,6 +42,8 @@ public class ControlFragmentFactory {
 			} else if (control.equals(Control.LIGHT) && lightMap.containsKey(context)) {
 				fragment = new LightControlFragment();
 				args.putSerializable(LightControlFragment.LIGHT, lightMap.get(context));
+			} else if (control.equals(Control.BLINDS)) {
+				fragment = new BlindControlFragment();
 			} else {
     		    fragment = new ControlFragment();
 			}

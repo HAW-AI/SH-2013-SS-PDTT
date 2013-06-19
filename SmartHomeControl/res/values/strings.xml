@@ -15,5 +15,12 @@
     <string name="kitchenLightsAllLightsTitle">Alle Lampen</string>
     <string name="kitchenLightsMainLightTitle">Decke</string>
     <string name="kitchenLightsCookingLightTitle">Küchenzeile</string>
+    <string name="blindHeightTitle">Höhe</string>
+    <string name="blindHeightSummary">offen</string>
+    <string-array name="blindHeightChoices">
+        <item>offen</item>
+        <item>halb-offen</item>
+        <item>geschlossen</item>
+    </string-array>
 
 </resources>

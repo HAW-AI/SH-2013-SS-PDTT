@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import de.wpsmarthome.control.Objects.Light;
 
@@ -14,6 +15,7 @@ public class Messages {
     private static final int sPort = 12349;
     
     private static final String sLightTopic = "LP.LIGHTCONTROL";
+    private static final String sBlindsTopic = "LP.LIGHTCONTROL";
     
     private static final Map<String, String> sNoValues = new HashMap<String, String>();
     
@@ -89,5 +91,27 @@ public class Messages {
 		}
 		
 		return message;
+	}
+
+	// height: 0 => open ; 1 => half open ; 2 => closed
+	public static Message blindHeightMessage(int height) {
+		if (height < 0 || height > 2) {
+			height = 0;
+		}
+		
+//		String action = isChecked ? "blinds_open" : "blinds_close";
+//		action = "blinds_close"; // DOESNT WORK (maybe, but only for sleeping hall)
+//		action = "blinds_open"; // WORKS
+//		action = "BlindsClose";
+//		action = "BlindsOpen";
+//		action = "blinds_dining_kitchen_close"; // WORKS
+//		action = "blinds_lounge_close"; // DOESNT WORK
+//		return message(action, sNoValues, sBlindsTopic);
+		return new Message() {
+			@Override
+			public void send() {
+				Log.d(getClass().getSimpleName(), "BlindsDummyMessage");
+			}
+		};
 	}
 }
