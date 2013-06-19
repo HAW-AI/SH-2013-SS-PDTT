@@ -30,7 +30,7 @@ public class LightControlFragment extends ControlFragment
     
     private int mDimmerValue = 100;
     private TextView mDimmerSummary;
-    private int mColorValue = -1442840577; // white
+    private int mColorValue = -16777216; // black
     private TextView mColorSummary;
 
     @Override
