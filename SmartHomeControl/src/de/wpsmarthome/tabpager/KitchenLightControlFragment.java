@@ -41,7 +41,7 @@ public class KitchenLightControlFragment extends ControlFragment {
 		Bundle args = new Bundle();
 		args.putSerializable(ControlFragment.CONTEXT, mContext);
 		args.putSerializable(ControlFragment.CONTROL, mControl);
-		args.putSerializable(LightControlFragment.LIGHT, Light.KITCHEN_ALL);
+		args.putSerializable(LightControlFragment.LIGHT, light);
 		
 		LightControlFragment f = new LightControlFragment();
 		f.setArguments(args);

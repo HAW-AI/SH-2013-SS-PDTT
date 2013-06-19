@@ -45,12 +45,12 @@ public class LightControlFragment extends ControlFragment
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_control_light,
          container, false);
-        
+
         CompoundButton toggleButton = (CompoundButton) rootView.findViewById(R.id.lightToggleButton);
         toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(simpleClassName, String.format("toggleButton.onCheckedChanged(this, %b)", isChecked));
+                Log.d(simpleClassName, String.format("toggleButton.onCheckedChanged(this(%s), %b)", mLight.toString(), isChecked));
                 Messages.lightSwitchMessage(mLight, isChecked).send();
             }
         });
