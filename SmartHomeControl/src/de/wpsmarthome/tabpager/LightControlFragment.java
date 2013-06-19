@@ -103,7 +103,7 @@ public class LightControlFragment extends ControlFragment
 
 	@Override
 	public void onProgressSet(SeekBarDialogFragment dialogFragment, int progress) {
-		Log.d(simpleClassName, String.format("onProgressSet(v, %s)", progress));
+		Log.d(simpleClassName, String.format(Locale.ENGLISH, "onProgressSet(v, %s)", progress));
 		mDimmerValue = progress;
 		mDimmerSummary.setText(progress + "%");
 		Messages.lightIntensityMessage(mLight, progress).send();
