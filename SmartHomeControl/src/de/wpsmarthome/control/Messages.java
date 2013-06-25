@@ -7,6 +7,7 @@ import java.util.Map;
 import android.graphics.Color;
 import android.util.Log;
 
+import de.wpsmarthome.control.Objects.Blind;
 import de.wpsmarthome.control.Objects.Light;
 
 // creates single messages and composed messages (multiple messages in one)
@@ -94,7 +95,7 @@ public class Messages {
 	}
 
 	// height: 0 => open ; 1 => half open ; 2 => closed
-	public static Message blindHeightMessage(int height) {
+	public static Message blindHeightMessage(Blind blind, int height) {
 		if (height < 0 || height > 2) {
 			height = 0;
 		}

@@ -12,6 +12,13 @@ public final class Objects {
 		BATHROOM
 	}
 	
+	public enum Blind {
+		LOUNGE,
+		KITCHEN,
+		DINING,
+		SLEEPING
+	}
+	
 	public enum Curtain {
 		LOUNGE,
 		CORRIDOR,

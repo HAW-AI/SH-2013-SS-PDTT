@@ -3,6 +3,7 @@ package de.wpsmarthome.tabpager;
 import java.util.Locale;
 
 import de.wpsmarthome.control.Messages;
+import de.wpsmarthome.control.Objects.Blind;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,10 +16,20 @@ import android.widget.TextView;
 
 public class BlindControlFragment extends ControlFragment implements ChoiceDialogFragment.OnChoiceListener {
 	    
-    private final String simpleClassName = getClass().getSimpleName();
+    public static final String BLIND = "blind";
+
+	private final String simpleClassName = getClass().getSimpleName();
     
+	private Blind mBlind;
     private TextView mHeightSummary;
     private int mHeightValue = 0;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        mBlind = (Blind) getArguments().getSerializable(BLIND);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +66,7 @@ public class BlindControlFragment extends ControlFragment implements ChoiceDialo
 		Log.d(simpleClassName, String.format(Locale.ENGLISH, "onChoice(f, %d)", choice));
 		mHeightValue = choice;
 		mHeightSummary.setText(summaryForHeight(choice));
-		Messages.blindHeightMessage(choice).send();
+		Messages.blindHeightMessage(mBlind, choice).send();
 	}
 
 	private CharSequence summaryForHeight(int choice) {
