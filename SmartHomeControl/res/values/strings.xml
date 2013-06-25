@@ -28,5 +28,11 @@
         <item>offen</item>
         <item>geschlossen</item>
     </string-array>
-
+    <string name="windowStateTitle">Öffnungsgrad</string>
+    <string name="windowStateSummary">geschlossen</string>
+    <string-array name="windowStateChoices">
+        <item>angelehnt</item>
+        <item>geschlossen</item>
+    </string-array>
+    
 </resources>

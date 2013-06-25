@@ -9,6 +9,7 @@ import android.util.Log;
 
 import de.wpsmarthome.control.Objects.Blind;
 import de.wpsmarthome.control.Objects.Light;
+import de.wpsmarthome.control.Objects.Window;
 
 // creates single messages and composed messages (multiple messages in one)
 public class Messages {
@@ -121,6 +122,15 @@ public class Messages {
 			@Override
 			public void send() {
 				Log.d(getClass().getSimpleName(), "CurtainsDummyMessage");
+			}
+		};
+	}
+
+	public static Message windowStateMessage(Window window, boolean leaveItAjar) {
+		return new Message() {
+			@Override
+			public void send() {
+				Log.d(getClass().getSimpleName(), "WindowsDummyMessage");
 			}
 		};
 	}

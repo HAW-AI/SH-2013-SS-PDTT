@@ -24,4 +24,9 @@ public final class Objects {
 		CORRIDOR,
 		SLEEPING
 	}
+	
+	public enum Window {
+		KITCHEN,
+		DINING
+	}
 }

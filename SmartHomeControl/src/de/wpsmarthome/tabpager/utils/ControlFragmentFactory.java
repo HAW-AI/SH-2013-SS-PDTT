@@ -10,11 +10,13 @@ import com.actionbarsherlock.app.SherlockFragment;
 import de.wpsmarthome.control.Objects.Blind;
 import de.wpsmarthome.control.Objects.Curtain;
 import de.wpsmarthome.control.Objects.Light;
+import de.wpsmarthome.control.Objects.Window;
 import de.wpsmarthome.tabpager.BlindControlFragment;
 import de.wpsmarthome.tabpager.ControlFragment;
 import de.wpsmarthome.tabpager.CurtainControlFragment;
 import de.wpsmarthome.tabpager.KitchenLightControlFragment;
 import de.wpsmarthome.tabpager.LightControlFragment;
+import de.wpsmarthome.tabpager.WindowControlFragment;
 import de.wpsmarthome.tabpager.utils.Context;
 public class ControlFragmentFactory {
 
@@ -22,6 +24,7 @@ public class ControlFragmentFactory {
 	private static Map<Context, Light> lightMap = new HashMap<Context, Light>();
 	private static Map<Context, Blind> blindMap = new HashMap<Context, Blind>();
 	private static Map<Context, Curtain> curtainMap = new HashMap<Context, Curtain>();
+	private static Map<Context, Window> windowMap = new HashMap<Context, Window>();
 
 	static{
 		
@@ -42,6 +45,9 @@ public class ControlFragmentFactory {
 		curtainMap.put(Context.LOUNGE, Curtain.LOUNGE);
 		curtainMap.put(Context.HALL, Curtain.CORRIDOR);
 		curtainMap.put(Context.BEDROOM, Curtain.SLEEPING);
+		
+		windowMap.put(Context.KITCHEN, Window.KITCHEN);
+		windowMap.put(Context.DINING, Window.DINING);
 	}
 	public static SherlockFragment getInstance(Context context, Control control) {
 		if (fragmentMap.get(context) == null){
@@ -62,6 +68,9 @@ public class ControlFragmentFactory {
 			} else if (control.equals(Control.CURTAIN) && curtainMap.containsKey(context)) {
 				fragment = new CurtainControlFragment();
 				args.putSerializable(CurtainControlFragment.CURTAIN, curtainMap.get(context));
+			} else if (control.equals(Control.WINDOW) && windowMap.containsKey(context)) {
+				fragment = new WindowControlFragment();
+				args.putSerializable(WindowControlFragment.WINDOW, windowMap.get(context));
 			} else {
     		    fragment = new ControlFragment();
 			}
