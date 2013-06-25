@@ -114,4 +114,13 @@ public class Messages {
 			}
 		};
 	}
+	
+	public static Message curtainStateMessage(Objects.Curtain curtain, boolean openIt) {
+		return new Message() {
+			@Override
+			public void send() {
+				Log.d(getClass().getSimpleName(), "CurtainsDummyMessage");
+			}
+		};
+	}
 }

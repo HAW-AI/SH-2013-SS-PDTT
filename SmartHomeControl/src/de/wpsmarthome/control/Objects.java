@@ -11,4 +11,10 @@ public final class Objects {
 		SLEEPING,
 		BATHROOM
 	}
+	
+	public enum Curtain {
+		LOUNGE,
+		CORRIDOR,
+		SLEEPING
+	}
 }

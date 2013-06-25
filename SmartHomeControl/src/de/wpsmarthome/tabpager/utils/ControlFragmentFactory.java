@@ -7,9 +7,11 @@ import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import de.wpsmarthome.control.Objects.Curtain;
 import de.wpsmarthome.control.Objects.Light;
 import de.wpsmarthome.tabpager.BlindControlFragment;
 import de.wpsmarthome.tabpager.ControlFragment;
+import de.wpsmarthome.tabpager.CurtainControlFragment;
 import de.wpsmarthome.tabpager.KitchenLightControlFragment;
 import de.wpsmarthome.tabpager.LightControlFragment;
 import de.wpsmarthome.tabpager.utils.Context;
@@ -17,6 +19,7 @@ public class ControlFragmentFactory {
 
 	private static Map<Context, Map<Control,SherlockFragment>>  fragmentMap = new HashMap<Context, Map<Control,SherlockFragment>>();
 	private static Map<Context, Light> lightMap = new HashMap<Context, Light>();
+	private static Map<Context, Curtain> curtainMap = new HashMap<Context, Curtain>();
 
 	static{
 		
@@ -28,6 +31,10 @@ public class ControlFragmentFactory {
 		lightMap.put(Context.DINING, Light.DINING);
 		lightMap.put(Context.HALL, Light.CORRIDOR);
 		lightMap.put(Context.BEDROOM, Light.SLEEPING);
+		
+		curtainMap.put(Context.LOUNGE, Curtain.LOUNGE);
+		curtainMap.put(Context.HALL, Curtain.CORRIDOR);
+		curtainMap.put(Context.BEDROOM, Curtain.SLEEPING);
 	}
 	public static SherlockFragment getInstance(Context context, Control control) {
 		if (fragmentMap.get(context) == null){
@@ -44,6 +51,9 @@ public class ControlFragmentFactory {
 				args.putSerializable(LightControlFragment.LIGHT, lightMap.get(context));
 			} else if (control.equals(Control.BLINDS)) {
 				fragment = new BlindControlFragment();
+			} else if (control.equals(Control.CURTAIN) && curtainMap.containsKey(context)) {
+				fragment = new CurtainControlFragment();
+				args.putSerializable(CurtainControlFragment.CURTAIN, curtainMap.get(context));
 			} else {
     		    fragment = new ControlFragment();
 			}

@@ -22,5 +22,11 @@
         <item>halb-offen</item>
         <item>geschlossen</item>
     </string-array>
+    <string name="curtainStateTitle">Öffnungsgrad</string>
+    <string name="curtainStateSummary">geschlossen</string>
+    <string-array name="curtainStateChoices">
+        <item>offen</item>
+        <item>geschlossen</item>
+    </string-array>
 
 </resources>
