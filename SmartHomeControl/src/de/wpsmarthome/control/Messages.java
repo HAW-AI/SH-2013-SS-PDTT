@@ -96,10 +96,8 @@ public class Messages {
 	}
 
 	// height: 0 => open ; 1 => half open ; 2 => closed
-	public static Message blindHeightMessage(Blind blind, int height) {
-		if (height < 0 || height > 2) {
-			height = 0;
-		}
+	public static Message blindHeightMessage(final Blind blind, final int heightParameter) {
+		final int height = (heightParameter < 0 || heightParameter > 2) ? 0 : heightParameter;
 		
 //		String action = isChecked ? "blinds_open" : "blinds_close";
 //		action = "blinds_close"; // DOESNT WORK (maybe, but only for sleeping hall)
@@ -112,25 +110,28 @@ public class Messages {
 		return new Message() {
 			@Override
 			public void send() {
-				Log.d(getClass().getSimpleName(), "BlindsDummyMessage");
+				Log.d(getClass().getSimpleName(),
+						String.format(Locale.ENGLISH, "BlindsDummyMessage(blind=%s, height=%d)", blind, height));
 			}
 		};
 	}
 	
-	public static Message curtainStateMessage(Objects.Curtain curtain, boolean openIt) {
+	public static Message curtainStateMessage(final Objects.Curtain curtain, final boolean openIt) {
 		return new Message() {
 			@Override
 			public void send() {
-				Log.d(getClass().getSimpleName(), "CurtainsDummyMessage");
+				Log.d(getClass().getSimpleName(),
+						String.format(Locale.ENGLISH, "CurtainsDummyMessage(curtain=%s, openIt=%b)", curtain, openIt));
 			}
 		};
 	}
 
-	public static Message windowStateMessage(Window window, boolean leaveItAjar) {
+	public static Message windowStateMessage(final Window window, final boolean leaveItAjar) {
 		return new Message() {
 			@Override
 			public void send() {
-				Log.d(getClass().getSimpleName(), "WindowsDummyMessage");
+				Log.d(getClass().getSimpleName(),
+						String.format(Locale.ENGLISH, "WindowsDummyMessage(window=%s, leaveItAjar=%b)", window, leaveItAjar));
 			}
 		};
 	}
