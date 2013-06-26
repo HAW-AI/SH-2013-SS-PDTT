@@ -5,7 +5,7 @@ import java.io.IOException;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class WindowMessage implements Message {
+public class WindowControlMessage implements Message {
 	
 	private final String mWindowId;
 	private final int mTargetWidth;
@@ -13,7 +13,7 @@ public class WindowMessage implements Message {
 	private final int mPort;
 	private final String mTopicName;
 	
-	WindowMessage(String windowId, int targetWidth, String server, int port, String topicName) {
+	WindowControlMessage(String windowId, int targetWidth, String server, int port, String topicName) {
 		mWindowId = windowId;
 		mTargetWidth = targetWidth;
 		mServer = server;
@@ -35,7 +35,7 @@ public class WindowMessage implements Message {
 		            publisher.setMessage(getJsonMessage());
 		            publisher.publishToTopic();
 		        } catch (IOException e) {
-		            Log.e(WindowMessage.this.getClass().getSimpleName(), "Can't publish the message (" + e + ")");
+		            Log.e(WindowControlMessage.this.getClass().getSimpleName(), "Can't publish the message (" + e + ")");
 		        }
 				return null;
 			}

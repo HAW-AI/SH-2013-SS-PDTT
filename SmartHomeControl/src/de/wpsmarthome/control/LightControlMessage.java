@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class SingleMessage implements Message {
+public class LightControlMessage implements Message {
 	
 	private static final String API_ID = "patricktill";
 	
@@ -18,7 +18,7 @@ public class SingleMessage implements Message {
 	private final int mPort;
 	private final String mTopicName;
 	
-	SingleMessage(String action, Map<String, String> values, String server, int port, String topicName) {
+	LightControlMessage(String action, Map<String, String> values, String server, int port, String topicName) {
 		mAction = action;
 		mValues = new HashMap<String, String>(values);
 		mServer = server;
@@ -40,7 +40,7 @@ public class SingleMessage implements Message {
 		            publisher.setMessage(getJsonMessage());
 		            publisher.publishToTopic();
 		        } catch (IOException e) {
-		            Log.e(SingleMessage.this.getClass().getSimpleName(), "Can't publish the message (" + e + ")");
+		            Log.e(LightControlMessage.this.getClass().getSimpleName(), "Can't publish the message (" + e + ")");
 		        }
 				return null;
 			}
@@ -101,7 +101,7 @@ public class SingleMessage implements Message {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SingleMessage other = (SingleMessage) obj;
+		LightControlMessage other = (LightControlMessage) obj;
 		if (mAction == null) {
 			if (other.mAction != null)
 				return false;

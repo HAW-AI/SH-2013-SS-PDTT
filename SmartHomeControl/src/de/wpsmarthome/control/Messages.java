@@ -16,19 +16,17 @@ public class Messages {
     private static final String sServer = "172.16.0.200";
     private static final int sPort = 12349;
     
-    private static final String sLightTopic = "LP.LIGHTCONTROL";
-    private static final String sBlindsTopic = "LP.LIGHTCONTROL";
-    private static final String sCurtainTopic = "LP.LIGHTCONTROL";
-    private static final String sWindowTopic = "WINDOW.CONTROL";
+    private static final String sLightControlTopic = "LP.LIGHTCONTROL";
+    private static final String sWindowControlTopic = "WINDOW.CONTROL";
     
     private static final Map<String, String> sNoValues = new HashMap<String, String>();
     
-	private static Message message(String action, Map<String, String> values, String topicName) {
-		return new SingleMessage(action, values, sServer, sPort, topicName);
+	private static Message lightControlMessage(String action, Map<String, String> values) {
+		return new LightControlMessage(action, values, sServer, sPort, sLightControlTopic);
 	}
 	
-	private static Message windowMessage(String windowId, int targetWidth, String topicName) {
-		return new WindowMessage(windowId, targetWidth, sServer, sPort, topicName);
+	private static Message windowControlMessage(String windowId, int targetWidth) {
+		return new WindowControlMessage(windowId, targetWidth, sServer, sPort, sWindowControlTopic);
 	}
 	
 	private static Message composedMessage(Message... messages) {
@@ -64,7 +62,7 @@ public class Messages {
 		} else {
 			String actionBaseName = light.toString().toLowerCase(Locale.ENGLISH);
 			String actionName = actionBaseName + "_light_" + (switchItOn ? "on" : "off");
-			message = message(actionName, sNoValues, sLightTopic);
+			message = lightControlMessage(actionName, sNoValues);
 		}
 		
 		return message;
@@ -101,7 +99,7 @@ public class Messages {
 			int absoluteIntensity = (int) Math.ceil(255.0/100 * intensity); // convert from [0, 100] to [0, 255]
 			values.put("intensity", absoluteIntensity + "");
 			
-			message = message(actionName, values, sLightTopic);
+			message = lightControlMessage(actionName, values);
 		}
 		
 		return message;
@@ -130,7 +128,7 @@ public class Messages {
 			values.put("green", Color.green(color) + "");
 			values.put("blue", Color.blue(color) + "");
 			
-			message = message(actionName, values, sLightTopic);
+			message = lightControlMessage(actionName, values);
 		}
 		
 		return message;
@@ -158,7 +156,7 @@ public class Messages {
 			
 			String actionCommand = height == 0 ? "open" : (height == 1 ? "half" : "close"); 
 			String actionName = "blinds_" + actionBaseName + "_" + actionCommand;
-			message = message(actionName, sNoValues, sBlindsTopic);
+			message = lightControlMessage(actionName, sNoValues);
 		}
 		
 		return message;
@@ -186,7 +184,7 @@ public class Messages {
 			
 			String actionCommand = openIt ? "open" : "close";
 			String actionName = actionBaseName + "_curtain_" + actionCommand;
-			message = message(actionName, sNoValues, sCurtainTopic);
+			message = lightControlMessage(actionName, sNoValues);
 		}
 		
 		return message;
@@ -195,6 +193,6 @@ public class Messages {
 	public static Message windowStateMessage(final Window window, final boolean leaveItAjar) {
 		String windowId = window.toString();
 		int targetWidth = leaveItAjar ? 20 : 0;
-		return windowMessage(windowId, targetWidth, sWindowTopic);
+		return windowControlMessage(windowId, targetWidth);
 	}
 }
