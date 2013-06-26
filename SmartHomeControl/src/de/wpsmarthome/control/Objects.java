@@ -25,7 +25,7 @@ public final class Objects {
 		SLEEPING;
 		
 		public static Blind[] allObjects() {
-			return new Blind[] { LOUNGE, KITCHEN, DINING, SLEEPING };
+			return new Blind[] { LOUNGE, KITCHEN, SLEEPING }; // dining and kitchen share a blind
 		}
 	}
 	

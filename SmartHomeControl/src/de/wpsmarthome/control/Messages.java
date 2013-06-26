@@ -154,13 +154,16 @@ public class Messages {
 				}
 			});
 		} else {
-			message = new Message() {
-				@Override
-				public void send() {
-					Log.d(getClass().getSimpleName(),
-							String.format(Locale.ENGLISH, "BlindsDummyMessage(blind=%s, height=%d)", blind, height));
-				}
-			};
+			String actionBaseName;
+			if (blind == Blind.DINING || blind == Blind.KITCHEN) {
+				actionBaseName = "dining_kitchen";
+			} else {
+				actionBaseName = blind.toString().toLowerCase(Locale.ENGLISH);
+			}
+			
+			String actionCommand = height == 0 ? "open" : (height == 1 ? "half" : "close"); 
+			String actionName = "blinds_" + actionBaseName + "_" + actionCommand;
+			message = message(actionName, sNoValues, sBlindsTopic);
 		}
 		
 		return message;
