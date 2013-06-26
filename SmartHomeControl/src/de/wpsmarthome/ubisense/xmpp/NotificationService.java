@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.wpsmarthome.ubisense;
+package de.wpsmarthome.ubisense.xmpp;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -78,27 +78,27 @@ public class NotificationService extends Service {
         // wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         // connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        sharedPrefs = getSharedPreferences(Constants.SHARED_PREFERENCE_NAME,
+        sharedPrefs = getSharedPreferences(XmppConstants.SHARED_PREFERENCE_NAME,
                 Context.MODE_PRIVATE);
 
         // Get deviceId
         deviceId = telephonyManager.getDeviceId();
         Log.d(LOGTAG, "deviceId=" + deviceId);
         Editor editor = sharedPrefs.edit();
-        editor.putString(Constants.DEVICE_ID, deviceId);
+        editor.putString(XmppConstants.DEVICE_ID, deviceId);
         editor.commit();
 
         // If running on an emulator
         if (deviceId == null || deviceId.trim().length() == 0
                 || deviceId.matches("0+")) {
             if (sharedPrefs.contains("EMULATOR_DEVICE_ID")) {
-                deviceId = sharedPrefs.getString(Constants.EMULATOR_DEVICE_ID,
+                deviceId = sharedPrefs.getString(XmppConstants.EMULATOR_DEVICE_ID,
                         "");
             } else {
                 deviceId = (new StringBuilder("EMU")).append(
                         (new Random(System.currentTimeMillis())).nextLong())
                         .toString();
-                editor.putString(Constants.EMULATOR_DEVICE_ID, deviceId);
+                editor.putString(XmppConstants.EMULATOR_DEVICE_ID, deviceId);
                 editor.commit();
             }
         }

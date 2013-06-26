@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name="ControlActivity"></activity>
-        <service android:name="de.wpsmarthome.ubisense.NotificationService">
+        <service android:name="de.wpsmarthome.ubisense.xmpp.NotificationService">
             <intent-filter>
                 <action android:name="de.wpsmarthome.xmpp.NotificationService"/>
             </intent-filter>

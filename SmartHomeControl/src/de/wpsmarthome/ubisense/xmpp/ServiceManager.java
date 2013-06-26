@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.wpsmarthome.ubisense;
+package de.wpsmarthome.ubisense.xmpp;
 
 import java.util.Properties;
 
@@ -70,15 +70,15 @@ public final class ServiceManager {
         Log.i(LOGTAG, "xmppPort=" + xmppPort);
 
         sharedPrefs = context.getSharedPreferences(
-                Constants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+                XmppConstants.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         Editor editor = sharedPrefs.edit();
-        editor.putString(Constants.API_KEY, apiKey);
-        editor.putString(Constants.VERSION, version);
-        editor.putString(Constants.XMPP_HOST, xmppHost);
-        editor.putInt(Constants.XMPP_PORT, Integer.parseInt(xmppPort));
-        editor.putString(Constants.CALLBACK_ACTIVITY_PACKAGE_NAME,
+        editor.putString(XmppConstants.API_KEY, apiKey);
+        editor.putString(XmppConstants.VERSION, version);
+        editor.putString(XmppConstants.XMPP_HOST, xmppHost);
+        editor.putInt(XmppConstants.XMPP_PORT, Integer.parseInt(xmppPort));
+        editor.putString(XmppConstants.CALLBACK_ACTIVITY_PACKAGE_NAME,
                 callbackActivityPackageName);
-        editor.putString(Constants.CALLBACK_ACTIVITY_CLASS_NAME,
+        editor.putString(XmppConstants.CALLBACK_ACTIVITY_CLASS_NAME,
                 callbackActivityClassName);
         editor.commit();
     }

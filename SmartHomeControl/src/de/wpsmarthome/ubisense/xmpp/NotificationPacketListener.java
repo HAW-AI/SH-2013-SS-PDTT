@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.wpsmarthome.ubisense;
+package de.wpsmarthome.ubisense.xmpp;
 
 
 
@@ -55,14 +55,14 @@ public class NotificationPacketListener implements PacketListener {
                 //                String notificationTicker = notification.getTicker();
                 String notificationUri = notification.getUri();
 
-                Intent intent = new Intent(Constants.ACTION_SHOW_NOTIFICATION);
-                intent.putExtra(Constants.NOTIFICATION_ID, notificationId);
-                intent.putExtra(Constants.NOTIFICATION_API_KEY,
+                Intent intent = new Intent(XmppConstants.ACTION_SHOW_NOTIFICATION);
+                intent.putExtra(XmppConstants.NOTIFICATION_ID, notificationId);
+                intent.putExtra(XmppConstants.NOTIFICATION_API_KEY,
                         notificationApiKey);
                 intent
-                        .putExtra(Constants.NOTIFICATION_SOURCE,
+                        .putExtra(XmppConstants.NOTIFICATION_SOURCE,
                                 notificationSource);
-                intent.putExtra(Constants.NOTIFICATION_MESSAGE,
+                intent.putExtra(XmppConstants.NOTIFICATION_MESSAGE,
                         notificationMessage);
 
                 xmppManager.getContext().sendBroadcast(intent);

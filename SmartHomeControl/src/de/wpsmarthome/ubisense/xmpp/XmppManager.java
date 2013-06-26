@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.wpsmarthome.ubisense;
+package de.wpsmarthome.ubisense.xmpp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +90,11 @@ public class XmppManager {
         taskTracker = notificationService.getTaskTracker();
         sharedPrefs = notificationService.getSharedPreferences();
 
-        xmppHost = sharedPrefs.getString(Constants.XMPP_HOST, "localhost");
-        xmppPort = sharedPrefs.getInt(Constants.XMPP_PORT, 5222);
-        username = sharedPrefs.getString(Constants.XMPP_USERNAME, "");
-        password = sharedPrefs.getString(Constants.XMPP_PASSWORD, "");
+        // read prefs from /res/raw/androidpn.properties
+        xmppHost = sharedPrefs.getString(XmppConstants.XMPP_HOST, "localhost");
+        xmppPort = sharedPrefs.getInt(XmppConstants.XMPP_PORT, 5222);
+        username = sharedPrefs.getString(XmppConstants.XMPP_USERNAME, "");
+        password = sharedPrefs.getString(XmppConstants.XMPP_PASSWORD, "");
 
         connectionListener = new PersistentConnectionListener(this);
         notificationPacketListener = new NotificationPacketListener(this);
@@ -231,8 +232,8 @@ public class XmppManager {
     }
 
     private boolean isRegistered() {
-        return sharedPrefs.contains(Constants.XMPP_USERNAME)
-                && sharedPrefs.contains(Constants.XMPP_PASSWORD);
+        return sharedPrefs.contains(XmppConstants.XMPP_USERNAME)
+                && sharedPrefs.contains(XmppConstants.XMPP_PASSWORD);
     }
 
     private void submitConnectTask() {
@@ -271,8 +272,8 @@ public class XmppManager {
 
     private void removeAccount() {
         Editor editor = sharedPrefs.edit();
-        editor.remove(Constants.XMPP_USERNAME);
-        editor.remove(Constants.XMPP_PASSWORD);
+        editor.remove(XmppConstants.XMPP_USERNAME);
+        editor.remove(XmppConstants.XMPP_PASSWORD);
         editor.commit();
     }
 
@@ -372,9 +373,9 @@ public class XmppManager {
                                 Log.d(LOGTAG, "password=" + newPassword);
 
                                 Editor editor = sharedPrefs.edit();
-                                editor.putString(Constants.XMPP_USERNAME,
+                                editor.putString(XmppConstants.XMPP_USERNAME,
                                         newUsername);
-                                editor.putString(Constants.XMPP_PASSWORD,
+                                editor.putString(XmppConstants.XMPP_PASSWORD,
                                         newPassword);
                                 editor.commit();
 								Log.i(LOGTAG, "Account registered successfully");
