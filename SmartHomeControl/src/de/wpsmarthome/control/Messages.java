@@ -5,7 +5,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import de.wpsmarthome.control.Objects.Blind;
 import de.wpsmarthome.control.Objects.Curtain;
@@ -20,11 +19,16 @@ public class Messages {
     private static final String sLightTopic = "LP.LIGHTCONTROL";
     private static final String sBlindsTopic = "LP.LIGHTCONTROL";
     private static final String sCurtainTopic = "LP.LIGHTCONTROL";
+    private static final String sWindowTopic = "WINDOW.CONTROL";
     
     private static final Map<String, String> sNoValues = new HashMap<String, String>();
     
 	private static Message message(String action, Map<String, String> values, String topicName) {
 		return new SingleMessage(action, values, sServer, sPort, topicName);
+	}
+	
+	private static Message windowMessage(String windowId, int targetWidth, String topicName) {
+		return new WindowMessage(windowId, targetWidth, sServer, sPort, topicName);
 	}
 	
 	private static Message composedMessage(Message... messages) {
@@ -199,25 +203,8 @@ public class Messages {
 	}
 
 	public static Message windowStateMessage(final Window window, final boolean leaveItAjar) {
-		Message message;
-		
-		if (window == Window.ALL) {
-			message = composedMessageFromObjects(Window.allObjects(), new MessageResolver<Window>() {
-				@Override
-				public Message messageForObject(Window object) {
-					return windowStateMessage(object, leaveItAjar);
-				}
-			});
-		} else {
-			message = new Message() {
-				@Override
-				public void send() {
-					Log.d(getClass().getSimpleName(),
-							String.format(Locale.ENGLISH, "WindowsDummyMessage(window=%s, leaveItAjar=%b)", window, leaveItAjar));
-				}
-			};
-		}
-		
-		return message;
+		String windowId = window.toString();
+		int targetWidth = leaveItAjar ? 20 : 0;
+		return windowMessage(windowId, targetWidth, sWindowTopic);
 	}
 }
