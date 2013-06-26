@@ -139,16 +139,6 @@ public class Messages {
 	// height: 0 => open ; 1 => half open ; 2 => closed
 	public static Message blindHeightMessage(final Blind blind, final int heightParameter) {
 		final int height = (heightParameter < 0 || heightParameter > 2) ? 0 : heightParameter;
-		
-//		String action = isChecked ? "blinds_open" : "blinds_close";
-//		action = "blinds_close"; // DOESNT WORK (maybe, but only for sleeping hall)
-//		action = "blinds_open"; // WORKS
-//		action = "BlindsClose";
-//		action = "BlindsOpen";
-//		action = "blinds_dining_kitchen_close"; // WORKS
-//		action = "blinds_lounge_close"; // DOESNT WORK
-//		return message(action, sNoValues, sBlindsTopic);
-		
 		Message message;
 		
 		if (blind == Blind.ALL) {
