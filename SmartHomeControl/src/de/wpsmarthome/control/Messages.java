@@ -19,6 +19,7 @@ public class Messages {
     
     private static final String sLightTopic = "LP.LIGHTCONTROL";
     private static final String sBlindsTopic = "LP.LIGHTCONTROL";
+    private static final String sCurtainTopic = "LP.LIGHTCONTROL";
     
     private static final Map<String, String> sNoValues = new HashMap<String, String>();
     
@@ -180,13 +181,18 @@ public class Messages {
 				}
 			});
 		} else {
-			message = new Message() {
-				@Override
-				public void send() {
-					Log.d(getClass().getSimpleName(),
-							String.format(Locale.ENGLISH, "CurtainsDummyMessage(curtain=%s, openIt=%b)", curtain, openIt));
-				}
-			};
+			String actionBaseName;
+			if (curtain == Curtain.CORRIDOR) {
+				actionBaseName = "sleeping_hall";
+			} else if (curtain == Curtain.SLEEPING) {
+				actionBaseName = "sleeping_window";
+			} else {
+				actionBaseName = curtain.toString().toLowerCase(Locale.ENGLISH);
+			}
+			
+			String actionCommand = openIt ? "open" : "close";
+			String actionName = actionBaseName + "_curtain_" + actionCommand;
+			message = message(actionName, sNoValues, sCurtainTopic);
 		}
 		
 		return message;
