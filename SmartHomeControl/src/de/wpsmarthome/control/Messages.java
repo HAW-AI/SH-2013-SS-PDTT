@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.util.Log;
 
 import de.wpsmarthome.control.Objects.Blind;
+import de.wpsmarthome.control.Objects.Curtain;
 import de.wpsmarthome.control.Objects.Light;
 import de.wpsmarthome.control.Objects.Window;
 
@@ -29,10 +30,29 @@ public class Messages {
 		return new ComposedMessage(messages);
 	}
 	
-	public static Message lightSwitchMessage(Objects.Light light, boolean switchItOn) {
+	private static interface MessageResolver<T> {
+		Message messageForObject(T object);
+	}
+	
+	private static <T> Message composedMessageFromObjects(T[] objects, MessageResolver<T> messageResolver) {
+		Message[] messages = new Message[objects.length];
+		for (int i = 0; i < objects.length; ++i) {
+			messages[i] = messageResolver.messageForObject(objects[i]);
+		}
+		return composedMessage(messages);
+	}
+
+	public static Message lightSwitchMessage(Light light, final boolean switchItOn) {
 		Message message = null;
 		
-		if (light == Light.KITCHEN_ALL) { // composed message
+		if (light == Light.ALL) {
+			message = composedMessageFromObjects(Light.allObjects(), new MessageResolver<Light>() {
+				@Override
+				public Message messageForObject(Light object) {
+					return lightSwitchMessage(object, switchItOn);
+				}
+			});
+		} else if (light == Light.KITCHEN_ALL) { // composed message
 			Message cookingLightMessage = lightSwitchMessage(Light.KITCHEN_COOKING, switchItOn);
 			Message mainLightMessage = lightSwitchMessage(Light.KITCHEN_MAIN, switchItOn);
 			message = composedMessage(cookingLightMessage, mainLightMessage);
@@ -46,16 +66,25 @@ public class Messages {
 	}
 	
 	// intensity \elem [0, 100]
-	public static Message lightIntensityMessage(Objects.Light light, int intensity) {
-		if (intensity < 0) {
-			intensity = 0;
-		} else if (intensity > 100) {
-			intensity = 100;
+	public static Message lightIntensityMessage(Objects.Light light, int intensityArgument) {
+		if (intensityArgument < 0) {
+			intensityArgument = 0;
+		} else if (intensityArgument > 100) {
+			intensityArgument = 100;
 		}
+		
+		final int intensity = intensityArgument;
 		
 		Message message = null;
 		
-		if (light == Light.KITCHEN_ALL) { // composed message
+		if (light == Light.ALL) {
+			message = composedMessageFromObjects(Light.allObjects(), new MessageResolver<Light>() {
+				@Override
+				public Message messageForObject(Light object) {
+					return lightIntensityMessage(object, intensity);
+				}
+			});
+		} else if (light == Light.KITCHEN_ALL) { // composed message
 			Message cookingLightMessage = lightColorMessage(Light.KITCHEN_COOKING, intensity);
 			Message mainLightMessage = lightColorMessage(Light.KITCHEN_MAIN, intensity);
 			message = composedMessage(cookingLightMessage, mainLightMessage);
@@ -73,10 +102,17 @@ public class Messages {
 		return message;
 	}
 	
-	public static Message lightColorMessage(Objects.Light light, int color) {
+	public static Message lightColorMessage(Objects.Light light, final int color) {
 		Message message = null;
 		
-		if (light == Light.KITCHEN_ALL) { // composed message
+		if (light == Light.ALL) {
+			message = composedMessageFromObjects(Light.allObjects(), new MessageResolver<Light>() {
+				@Override
+				public Message messageForObject(Light object) {
+					return lightColorMessage(object, color);
+				}
+			});
+		} else if (light == Light.KITCHEN_ALL) { // composed message
 			Message cookingLightMessage = lightColorMessage(Light.KITCHEN_COOKING, color);
 			Message mainLightMessage = lightColorMessage(Light.KITCHEN_MAIN, color);
 			message = composedMessage(cookingLightMessage, mainLightMessage);
@@ -107,32 +143,72 @@ public class Messages {
 //		action = "blinds_dining_kitchen_close"; // WORKS
 //		action = "blinds_lounge_close"; // DOESNT WORK
 //		return message(action, sNoValues, sBlindsTopic);
-		return new Message() {
-			@Override
-			public void send() {
-				Log.d(getClass().getSimpleName(),
-						String.format(Locale.ENGLISH, "BlindsDummyMessage(blind=%s, height=%d)", blind, height));
-			}
-		};
+		
+		Message message;
+		
+		if (blind == Blind.ALL) {
+			message = composedMessageFromObjects(Blind.allObjects(), new MessageResolver<Blind>() {
+				@Override
+				public Message messageForObject(Blind object) {
+					return blindHeightMessage(object, height);
+				}
+			});
+		} else {
+			message = new Message() {
+				@Override
+				public void send() {
+					Log.d(getClass().getSimpleName(),
+							String.format(Locale.ENGLISH, "BlindsDummyMessage(blind=%s, height=%d)", blind, height));
+				}
+			};
+		}
+		
+		return message;
 	}
 	
-	public static Message curtainStateMessage(final Objects.Curtain curtain, final boolean openIt) {
-		return new Message() {
-			@Override
-			public void send() {
-				Log.d(getClass().getSimpleName(),
-						String.format(Locale.ENGLISH, "CurtainsDummyMessage(curtain=%s, openIt=%b)", curtain, openIt));
-			}
-		};
+	public static Message curtainStateMessage(final Curtain curtain, final boolean openIt) {
+		Message message;
+		
+		if (curtain == Curtain.ALL) {
+			message = composedMessageFromObjects(Curtain.allObjects(), new MessageResolver<Curtain>() {
+				@Override
+				public Message messageForObject(Curtain object) {
+					return curtainStateMessage(object, openIt);
+				}
+			});
+		} else {
+			message = new Message() {
+				@Override
+				public void send() {
+					Log.d(getClass().getSimpleName(),
+							String.format(Locale.ENGLISH, "CurtainsDummyMessage(curtain=%s, openIt=%b)", curtain, openIt));
+				}
+			};
+		}
+		
+		return message;
 	}
 
 	public static Message windowStateMessage(final Window window, final boolean leaveItAjar) {
-		return new Message() {
-			@Override
-			public void send() {
-				Log.d(getClass().getSimpleName(),
-						String.format(Locale.ENGLISH, "WindowsDummyMessage(window=%s, leaveItAjar=%b)", window, leaveItAjar));
-			}
-		};
+		Message message;
+		
+		if (window == Window.ALL) {
+			message = composedMessageFromObjects(Window.allObjects(), new MessageResolver<Window>() {
+				@Override
+				public Message messageForObject(Window object) {
+					return windowStateMessage(object, leaveItAjar);
+				}
+			});
+		} else {
+			message = new Message() {
+				@Override
+				public void send() {
+					Log.d(getClass().getSimpleName(),
+							String.format(Locale.ENGLISH, "WindowsDummyMessage(window=%s, leaveItAjar=%b)", window, leaveItAjar));
+				}
+			};
+		}
+		
+		return message;
 	}
 }

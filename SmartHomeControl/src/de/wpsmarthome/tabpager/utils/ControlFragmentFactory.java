@@ -32,20 +32,24 @@ public class ControlFragmentFactory {
 			fragmentMap.put(c,null);
 		}
 
+		lightMap.put(Context.ALL, Light.ALL);
 		lightMap.put(Context.LOUNGE, Light.LOUNGE);
 		lightMap.put(Context.DINING, Light.DINING);
 		lightMap.put(Context.HALL, Light.CORRIDOR);
 		lightMap.put(Context.BEDROOM, Light.SLEEPING);
-		
+
+		blindMap.put(Context.ALL, Blind.ALL);
 		blindMap.put(Context.LOUNGE, Blind.LOUNGE);
 		blindMap.put(Context.KITCHEN, Blind.KITCHEN);
 		blindMap.put(Context.DINING, Blind.DINING);
 		blindMap.put(Context.BEDROOM, Blind.SLEEPING);
-		
+
+		curtainMap.put(Context.ALL, Curtain.ALL);
 		curtainMap.put(Context.LOUNGE, Curtain.LOUNGE);
 		curtainMap.put(Context.HALL, Curtain.CORRIDOR);
 		curtainMap.put(Context.BEDROOM, Curtain.SLEEPING);
-		
+
+		windowMap.put(Context.ALL, Window.ALL);
 		windowMap.put(Context.KITCHEN, Window.KITCHEN);
 		windowMap.put(Context.DINING, Window.DINING);
 	}
