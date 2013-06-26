@@ -6,13 +6,13 @@ public enum Context {
 	ALL("Alle Räume") {
 		@Override
 		public Control[] getControls() {
-			return new Control[] { LIGHT, CURTAIN, BLINDS, WINDOW, HEATING };
+			return new Control[] { LIGHT, CURTAIN, BLINDS, WINDOW };
 		}
 	},
 	LOUNGE("Lounge") {
 		@Override
 		public Control[] getControls() {
-			return new Control[] { LIGHT, CURTAIN, BLINDS, HEATING };
+			return new Control[] { LIGHT, CURTAIN, BLINDS };
 		}
 	},
 	KITCHEN("Küche") {
@@ -30,13 +30,13 @@ public enum Context {
 	BEDROOM("Schlafbereich") {
 		@Override
 		public Control[] getControls() {
-			return new Control[] { LIGHT, CURTAIN, BLINDS, HEATING };
+			return new Control[] { LIGHT, CURTAIN, BLINDS };
 		}
 	},
 	DINING("Essbereich") {
 		@Override
 		public Control[] getControls() {
-			return new Control[] { LIGHT, BLINDS, WINDOW, HEATING };
+			return new Control[] { LIGHT, BLINDS, WINDOW };
 		}
 	};
 
