@@ -9,8 +9,7 @@ public final class Objects {
 		KITCHEN_ALL,
 		DINING,
 		CORRIDOR,
-		SLEEPING,
-		BATHROOM;
+		SLEEPING;
 		
 		public static Light[] allObjects() {
 			return new Light[] { LOUNGE, KITCHEN_COOKING, KITCHEN_MAIN, DINING, CORRIDOR, SLEEPING };
