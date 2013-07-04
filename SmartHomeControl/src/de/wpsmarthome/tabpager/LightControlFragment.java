@@ -23,11 +23,15 @@ public class LightControlFragment extends ControlFragment
 	implements SeekBarDialogFragment.OnProgressSetListener, ColorPickerDialogFragment.OnColorSetListener {
 	
 	public static final String LIGHT = "light";
+	public static final String LIGHT_VALUE = "light_value";
+	public static final String DIMMER_VALUE = "dimmer_value";
+	public static final String COLOR_VALUE = "color_value";
     
     private final String simpleClassName = getClass().getSimpleName();
     
     private Light mLight;
-    
+
+    private boolean mIsLightOn = false;
     private int mDimmerValue = 100;
     private TextView mDimmerSummary;
     private int mColorValue = -16777216; // black
@@ -38,6 +42,21 @@ public class LightControlFragment extends ControlFragment
         super.onCreate(savedInstanceState);
         
         mLight = (Light) getArguments().getSerializable(LIGHT);
+        
+        if (savedInstanceState != null) {
+        	mIsLightOn = savedInstanceState.getBoolean(LIGHT_VALUE);
+        	mDimmerValue = savedInstanceState.getInt(DIMMER_VALUE);
+        	mColorValue = savedInstanceState.getInt(COLOR_VALUE);
+        }
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+    	super.onSaveInstanceState(bundle);
+    	
+    	bundle.putBoolean(LIGHT_VALUE, mIsLightOn);
+    	bundle.putInt(DIMMER_VALUE, mDimmerValue);
+    	bundle.putInt(COLOR_VALUE, mColorValue);
     }
 
     @Override
@@ -47,10 +66,12 @@ public class LightControlFragment extends ControlFragment
          container, false);
 
         CompoundButton toggleButton = (CompoundButton) rootView.findViewById(R.id.lightToggleButton);
+        toggleButton.setChecked(mIsLightOn);
         toggleButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Log.d(simpleClassName, String.format("toggleButton.onCheckedChanged(this(%s), %b)", mLight.toString(), isChecked));
+                mIsLightOn = isChecked;
                 Messages.lightSwitchMessage(mLight, isChecked).send();
             }
         });

@@ -13,6 +13,8 @@ import de.wpsmarthome.tabpager.utils.ContextDelegate;
 
 
 public class ControlActivity extends SherlockFragmentActivity {
+	
+	private Context mContext;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,14 +22,24 @@ public class ControlActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_control);
 
         getSherlock().getActionBar().setDisplayHomeAsUpEnabled(true);
-
+        
 		if (savedInstanceState == null) {		
 			Bundle b = getIntent().getExtras();
-			Context context = (Context)b.getSerializable(ControlFragment.CONTEXT);
-			setTitle(context.toString());
-			ContextDelegate clfDelegate = new ContextDelegate();
-			clfDelegate.onItemSelected(context, this);
+			mContext = (Context)b.getSerializable(ControlFragment.CONTEXT);
+		} else {
+			mContext = (Context)savedInstanceState.getSerializable(ControlFragment.CONTEXT);
 		}
+		
+		setTitle(mContext.toString());
+		ContextDelegate clfDelegate = new ContextDelegate();
+		clfDelegate.onItemSelected(mContext, this);
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		
+		outState.putSerializable(ControlFragment.CONTEXT, mContext);
 	}
 
 	@Override

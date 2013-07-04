@@ -15,8 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class BlindControlFragment extends ControlFragment implements ChoiceDialogFragment.OnChoiceListener {
-	    
+
     public static final String BLIND = "blind";
+    public static final String BLIND_VALUE = "blind_value";
 
 	private final String simpleClassName = getClass().getSimpleName();
     
@@ -29,6 +30,17 @@ public class BlindControlFragment extends ControlFragment implements ChoiceDialo
         super.onCreate(savedInstanceState);
         
         mBlind = (Blind) getArguments().getSerializable(BLIND);
+        
+        if (savedInstanceState != null) {
+        	mHeightValue = savedInstanceState.getInt(BLIND_VALUE);
+        }
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
+    	
+    	outState.putInt(BLIND_VALUE, mHeightValue);
     }
 
     @Override

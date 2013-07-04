@@ -15,8 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class WindowControlFragment extends ControlFragment implements ChoiceDialogFragment.OnChoiceListener {
-	
+
 	public static final String WINDOW = "window";
+	public static final String WINDOW_STATE = "window_state";
 	
     private final String simpleClassName = getClass().getSimpleName();
     
@@ -33,6 +34,17 @@ public class WindowControlFragment extends ControlFragment implements ChoiceDial
         super.onCreate(savedInstanceState);
         
         mWindow = (Window) getArguments().getSerializable(WINDOW);
+        
+        if (savedInstanceState != null) {
+        	mStateValue = savedInstanceState.getInt(WINDOW_STATE);
+        }
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
+    	
+    	outState.putInt(WINDOW_STATE, mStateValue);
     }
 
     @Override

@@ -15,8 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class CurtainControlFragment extends ControlFragment implements ChoiceDialogFragment.OnChoiceListener {
-	
+
 	public static final String CURTAIN = "curtain";
+	public static final String CURTAIN_VALUE = "curtain_value";
 	
     private final String simpleClassName = getClass().getSimpleName();
     
@@ -33,6 +34,17 @@ public class CurtainControlFragment extends ControlFragment implements ChoiceDia
         super.onCreate(savedInstanceState);
         
         mCurtain = (Curtain) getArguments().getSerializable(CURTAIN);
+        
+        if (savedInstanceState != null) {
+        	mStateValue = savedInstanceState.getInt(CURTAIN_VALUE);
+        }
+    }
+    
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+    	super.onSaveInstanceState(outState);
+    	
+    	outState.putInt(CURTAIN_VALUE, mStateValue);
     }
 
     @Override
