@@ -15,6 +15,7 @@ import de.wpsmarthome.tabpager.R;
 import de.wpsmarthome.tabpager.utils.Context;
 import de.wpsmarthome.tabpager.utils.ContextDelegate;
 import de.wpsmarthome.ubisense.Constants;
+import de.wpsmarthome.ubisense.MessageTranslator;
 import de.wpsmarthome.ubisense.xmpp.ServiceManager;
 import de.wpsmarthome.ubisense.xmpp.XmppConstants;
 
@@ -52,7 +53,7 @@ public class ContextListActivity extends SherlockFragmentActivity implements
 				Log.d(LOGTAG, "NotificationReceiver.onReceive()...");
 				String action = intent.getAction();
 
-//				if (XmppConstants.ACTION_SHOW_NOTIFICATION.equals(action)) {
+				if (XmppConstants.ACTION_SHOW_NOTIFICATION.equals(action)) {
 					final String notificationMessage = intent
 							.getStringExtra(XmppConstants.NOTIFICATION_MESSAGE);
 
@@ -62,7 +63,7 @@ public class ContextListActivity extends SherlockFragmentActivity implements
 							ContextListActivity.this.handleIncomingMessage(notificationMessage);
 						}
 					});
-//				}
+				}
 			}
 		};
 		Log.d(LOGTAG, "onResume" + " registerReceiver");
@@ -99,20 +100,31 @@ public class ContextListActivity extends SherlockFragmentActivity implements
 
 	protected void switchToRoom(String room) {
 		Log.d(LOGTAG, "switchToRoom..." + room);
+		Context context = MessageTranslator.roomNameToContext(room);
+		if (context != null) {
+			Log.d(LOGTAG, "switching to room " + context);
+			if (mTwoPane) {
+				Log.d(getClass().getSimpleName(), "mTwoPane");
+				clfDelegate.onItemSelected(context, this);
+			} else {
+				Intent detailIntent = new Intent(this, ControlActivity.class);
+				detailIntent.putExtra(ControlFragment.CONTEXT, context);
+				startActivity(detailIntent);
+			}			
+		}
 	}
 
 	protected void handleIncomingMessage(String message) {
 		try {
 			JSONObject serverJSONMessage = new JSONObject(message);
 			String tagId = serverJSONMessage.getString(Constants.UBISENSETAGID);
-			String room = serverJSONMessage.getString(Constants.OBJECT_TYPE);
+			String room = serverJSONMessage.getString(Constants.OBJECT_ID);
 			Log.d(LOGTAG, "handleIncomingMessage " + message);
-//			Boolean inSpace = Boolean.valueOf(serverJSONMessage
-//					.getString("InSpace"));
-//			if (inSpace) {
-//				ControlActivity.this.switchToRoom(serverJSONMessage
-//						.getString("ObjectId"));
-//			}
+			Boolean inSpace = Boolean.valueOf(serverJSONMessage
+					.getString("InSpace"));
+			if (inSpace) {
+				ContextListActivity.this.switchToRoom(room);
+			}
 		} catch (JSONException e) {
 			Log.e(LOGTAG, "JSONException in handleIncomingMessage");
 		}
