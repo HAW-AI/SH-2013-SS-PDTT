@@ -57,6 +57,7 @@ public class LightControlFragment extends ControlFragment
         
         final View dimmerGroup = (View) rootView.findViewById(R.id.lightDimmerGroup);
         mDimmerSummary = (TextView) rootView.findViewById(R.id.lightDimmerSummary);
+        mDimmerSummary.setText(dimmerSummary(mDimmerValue));
         dimmerGroup.setOnClickListener(new OnClickListener() {
             // must be local or it will only work correctly on the first time
             Drawable selector = new ListView(LightControlFragment.this.getActivity()).getSelector();
@@ -105,7 +106,7 @@ public class LightControlFragment extends ControlFragment
 	public void onProgressSet(SeekBarDialogFragment dialogFragment, int progress) {
 		Log.d(simpleClassName, String.format(Locale.ENGLISH, "onProgressSet(v, %s)", progress));
 		mDimmerValue = progress;
-		mDimmerSummary.setText(progress + "%");
+		mDimmerSummary.setText(dimmerSummary(progress));
 		Messages.lightIntensityMessage(mLight, progress).send();
 	}
 
@@ -115,6 +116,10 @@ public class LightControlFragment extends ControlFragment
 		mColorValue = color;
 		mColorSummary.setText(colorSummary(color));
 		Messages.lightColorMessage(mLight, color).send();
+	}
+	
+	private CharSequence dimmerSummary(int value) {
+		return value + "%";
 	}
 	
 	private CharSequence colorSummary(int color) {
