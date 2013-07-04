@@ -5,6 +5,8 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="/Users/patrick/Dropbox/HAW/WP-Android/ws/SH-2013-SS-PDTT/SmartHomeControl/lib/asmack.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/asmack.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/actionbarsherlock"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/HoloColorPicker"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

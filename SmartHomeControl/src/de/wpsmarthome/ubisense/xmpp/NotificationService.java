@@ -43,7 +43,7 @@ public class NotificationService extends Service {
 
     private static final String LOGTAG = NotificationService.class.getSimpleName();
 
-    public static final String SERVICE_NAME = "org.androidpn.client.NotificationService";
+    public static final String SERVICE_NAME = "de.wpsmarthome.ubisense.xmpp.NotificationService";
 
     private TelephonyManager telephonyManager;
 
