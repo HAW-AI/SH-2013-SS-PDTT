@@ -28,8 +28,6 @@ public class ContextListActivity extends LocationAwareActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_context_list);
 
-		resetXMPPIp();
-
 		if (findViewById(R.id.control_container) != null) {
 			mTwoPane = true;
 			((ContextListFragment) getSupportFragmentManager()
@@ -86,14 +84,5 @@ public class ContextListActivity extends LocationAwareActivity implements
 			editor.commit();
 			super.restartService();
 		}
-	}
-	
-	private void resetXMPPIp() {
-		Log.d(LOGTAG, "resetXMPPIp");
-		SharedPreferences sharedPrefs = this.getSharedPreferences(
-                XmppConstants.SHARED_PREFERENCE_NAME, android.content.Context.MODE_PRIVATE);
-		Editor editor = sharedPrefs.edit();
-		editor.remove(Constants.XMPP_IP_FROM_SETTINGS_DIALOG);
-		editor.commit();
 	}
 }
