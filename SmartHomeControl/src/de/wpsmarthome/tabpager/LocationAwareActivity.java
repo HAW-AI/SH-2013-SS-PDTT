@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
-import de.wpsmarthome.tabpager.R;
 import de.wpsmarthome.tabpager.utils.Context;
 import de.wpsmarthome.tabpager.utils.ContextDelegate;
 import de.wpsmarthome.ubisense.Constants;
@@ -30,14 +29,16 @@ public abstract class LocationAwareActivity extends SherlockFragmentActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		serviceManager = new ServiceManager(this);
 		serviceManager.startService();
 	}
+
 	@Override
 	protected void onResume() {
 		Log.d(LOGTAG, "onResume");
-		notificationReceiver = new BroadcastReceiver() {
 
+		notificationReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(android.content.Context context, Intent intent) {
 				Log.d(LOGTAG, "NotificationReceiver.onReceive()...");
@@ -91,6 +92,7 @@ public abstract class LocationAwareActivity extends SherlockFragmentActivity {
 	protected void switchToRoom(String room) {
 		Log.d(LOGTAG, "switchToRoom..." + room);
 		Context context = MessageTranslator.roomNameToContext(room);
+
 		if (context != null) {
 			Log.d(LOGTAG, "switching to room " + context);
 			if (mTwoPane) {
@@ -107,7 +109,6 @@ public abstract class LocationAwareActivity extends SherlockFragmentActivity {
 	protected void handleIncomingMessage(String message) {
 		try {
 			JSONObject serverJSONMessage = new JSONObject(message);
-			String tagId = serverJSONMessage.getString(Constants.UBISENSETAGID);
 			String room = serverJSONMessage.getString(Constants.OBJECT_ID);
 			Log.d(LOGTAG, "handleIncomingMessage " + message);
 			Boolean inSpace = Boolean.valueOf(serverJSONMessage
@@ -117,6 +118,17 @@ public abstract class LocationAwareActivity extends SherlockFragmentActivity {
 			}
 		} catch (JSONException e) {
 			Log.e(LOGTAG, "JSONException in handleIncomingMessage");
+		}
+	}
+	
+	/**
+	 * Needed when the user enters a new XMPP server IP address
+	 */
+	protected void restartService() {
+		if (serviceManager != null) {
+			serviceManager.stopService();
+			serviceManager = new ServiceManager(this);
+			serviceManager.startService();
 		}
 	}
 }

@@ -35,6 +35,8 @@ import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Registration;
 import org.jivesoftware.smack.provider.ProviderManager;
 
+import de.wpsmarthome.ubisense.Constants;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -90,8 +92,12 @@ public class XmppManager {
         taskTracker = notificationService.getTaskTracker();
         sharedPrefs = notificationService.getSharedPreferences();
 
-        // read prefs from /res/raw/androidpn.properties
-        xmppHost = sharedPrefs.getString(XmppConstants.XMPP_HOST, "localhost");
+        String xmmpHostFromSettingsDialog = sharedPrefs.getString(Constants.XMPP_IP_FROM_SETTINGS_DIALOG, Constants.XMPP_IP_NOT_PRESENT);
+        if (xmmpHostFromSettingsDialog.equals(Constants.XMPP_IP_NOT_PRESENT)) {
+        	xmppHost = sharedPrefs.getString(XmppConstants.XMPP_HOST, "localhost");        	
+        } else {
+        	xmppHost = xmmpHostFromSettingsDialog;
+        }
         xmppPort = sharedPrefs.getInt(XmppConstants.XMPP_PORT, 5222);
         username = sharedPrefs.getString(XmppConstants.XMPP_USERNAME, "");
         password = sharedPrefs.getString(XmppConstants.XMPP_PASSWORD, "");
