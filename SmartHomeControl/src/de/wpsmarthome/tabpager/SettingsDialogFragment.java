@@ -59,9 +59,10 @@ public class SettingsDialogFragment extends SherlockDialogFragment {
 		} else {
 			ipAddressText.setText(xmppIpAddressFromSettingsDialog);
 		}
+		ipAddressText.setSelection(ipAddressText.length());
 
 		builder.setTitle(R.string.settingsDialogTitle)
-				.setPositiveButton(R.string.settingsDialogOk,
+				.setPositiveButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
@@ -69,13 +70,7 @@ public class SettingsDialogFragment extends SherlockDialogFragment {
 										.getText().toString());
 							}
 						})
-				.setNegativeButton(R.string.settingsDialogCancel,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								// do nothing
-							}
-						});
+				.setNegativeButton(android.R.string.cancel, null);
 		
 		return builder.create();
 	}

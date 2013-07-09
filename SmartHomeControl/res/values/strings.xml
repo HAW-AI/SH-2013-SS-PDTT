@@ -34,9 +34,6 @@
         <item>angelehnt</item>
         <item>geschlossen</item>
     </string-array>
-    <string name="settingsDialogTitle">Einstellungen</string>
-    <string name="settingsDialogOk">OK</string>
-    <string name="settingsDialogCancel">Abbrechen</string>
-    <string name="xmpp_server">XMPP Server IP</string>
+    <string name="settingsDialogTitle">XMPP-Server-IP</string>
     
 </resources>
