@@ -4,20 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 
-import de.wpsmarthome.tabpager.R;
 import de.wpsmarthome.tabpager.utils.Context;
 import de.wpsmarthome.tabpager.utils.ContextDelegate;
 
 
-public class ControlActivity extends SherlockFragmentActivity {
+public class ControlActivity extends LocationAwareActivity {
 	
 	private Context mContext;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_control);
 
