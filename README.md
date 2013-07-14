@@ -3,7 +3,11 @@
 
 # Installation mit APK
 1. Auf dem Geraet unter `Einstellungen/Sicherheit/Geräteverwaltung/Unbekannte Herkunft` erlauben
-2. Das Geraet mittels USB an einen PC mit den installierten Android Developer Tools (adb) anschließen und `adb install <repository>/SmartHomeControl.apk` ausfuehren.
+2. https://dl.dropboxusercontent.com/u/12640802/LPXMPPPushMQIntermediate.zip herunterladen und entpacken. Den entpackte Ordner via `Eclipse/File/Import…/General/Existing Projects into Workspace` in den Workspace importieren.
+3. Damit das Smartphone sich mit dem LPXMPPPushMQIntermediate-Server verbinden kann, muss im conf-Verzeichnis des Intermediate Servers die config.properties-Datei angepasst werden. Dort müssen alle IP-Adressen auf die Living Place-Sensornetz-IP-Adresse des PCs gesetzt werden.
+4. In Eclipse auf dem PC, der als Intermediate Server dienen soll, den LPXMPPPushMQIntermediate-Server starten (main-Methode in Klasse LPPushServerStarter)
+5. In Eclipse die SmartHomeControl-App auf einem Gerät starten
+6. Das Geraet mittels USB an einen PC mit den installierten Android Developer Tools (adb) anschließen und `adb install <repository>/SmartHomeControl.apk` ausfuehren.
 
 
 # Installation ohne APK
